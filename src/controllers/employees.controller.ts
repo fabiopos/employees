@@ -12,7 +12,7 @@ export class EmployeeController {
     req: Request<never, never, never, IQueryEmployee>,
     res: Response
   ) => {
-    const { badges, page, user } = req.query;
+    const { badges, page, user } = req.query; // user=true&page=3
 
     let employees: IEmployee[] = this.repository.getAllEmployees();
 
@@ -71,6 +71,8 @@ export class EmployeeController {
   ) => {
     const { name } = req.params;
     const result = this.repository.filterByName(name);
+
+    if (result.length === 0) return res.status(404).json({ code: "not_found" });
     return res.status(200).json(result);
   };
 }

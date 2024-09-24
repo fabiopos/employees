@@ -1,14 +1,12 @@
+import supertest from "supertest";
 import ExpressServer from "./server/expressServer";
 
 const HOST: string = process.env.HOST || "localhost";
-const PORT: number = Number(process.env.POR) || 3000;
+const PORT: number = Number(process.env.PORT) || 3000;
 
 const server = new ExpressServer(HOST, PORT);
-//const employeeRoute = new EmployeeRoute(server);
-
+export const supertestInstance = supertest(server.getExpress())
 try {
-  // employeeRoute.setRoutes();
-  
   server.listen();
 } catch (e) {
   console.log(e);
